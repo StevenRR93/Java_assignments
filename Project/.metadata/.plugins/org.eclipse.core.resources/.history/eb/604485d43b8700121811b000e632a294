@@ -1,0 +1,47 @@
+/*
+ * Steven Ramirez
+ * Joseph Michalak
+ * Stadium Project
+ * 
+ */
+
+import java.awt.*;
+import javax.swing.*;
+
+public class Checkout extends JFrame {
+	private JPanel panel;
+	private JList listSeats;
+	private JButton button;
+	public DefaultListModel show= new DefaultListModel();
+	
+	public Checkout(String title){
+		super(title);
+		BorderLayout layout = new BorderLayout(1,1);
+	    this.setLayout(layout);
+		
+		panel= new JPanel();
+		show.addElement("Item(s) currently in cart: ");
+		if (!Stadium.getShoppingCart().isEmpty()){
+			for (Seat list: Stadium.getShoppingCart()){
+				show.addElement(list);
+			}}
+		else
+			show.addElement("You have no items in your shopping cart!");
+		listSeats= new JList(show);
+		panel.add(listSeats);
+		
+		
+		button = new JButton("Purchase");
+		button.setToolTipText("Purchase all items currently in your shopping cart.");
+		panel.add(button);
+		
+		panel.setAutoscrolls(true);
+		
+		add(BorderLayout.CENTER, panel);
+        setDefaultCloseOperation(HIDE_ON_CLOSE);
+        setSize(500, 500);
+        setLocation(200,100);
+	}
+	
+	
+}

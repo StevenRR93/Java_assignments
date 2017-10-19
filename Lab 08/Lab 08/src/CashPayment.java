@@ -1,0 +1,21 @@
+/*
+ * Steven Ramirez
+ * ECE 251
+ * Lab 08 
+ */
+
+public class CashPayment extends Payment {
+	public CashPayment(){
+		super();
+	}
+	
+	public CashPayment(double a){
+		super(a);
+	}
+	
+	public String paymentDetails(){
+		String paydetails= super.paymentDetails() + " in cash.";
+		System.out.println(paydetails);
+		return paydetails;
+	}
+}

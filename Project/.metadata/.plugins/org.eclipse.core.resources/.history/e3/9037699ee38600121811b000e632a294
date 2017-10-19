@@ -1,0 +1,225 @@
+/*
+ * Steven Ramirez
+ * Joseph Michalak
+ * Stadium Project
+ * 
+ */
+
+import java.awt.event.*;
+import java.awt.*;
+import java.util.ArrayList;
+import java.util.Iterator;
+import javax.swing.*;
+import java.io.*;
+
+public class Stadium extends JFrame implements ActionListener {
+	//create stadium array
+	private static Seat[][] stadium= new Seat[27][35];
+	private static ArrayList<Seat> shoppingCart= new ArrayList<Seat>();
+	private JPanel panel1;
+	private JPanel panel2;
+	private JPanel panel3;
+	public String[] list = {"Column Number: " + 0 , "Row Letter: " +  0 , "Section Number: " + 0 };
+	private JList seatdisp = new JList(list);
+	public String[] read= {"Red = $74", "Green = $47", "Blue = $32" ,"Yellow = $19"};
+	private final JList costdisp = new JList(read);
+	private JButton b;
+
+
+/****************************************************************/
+	private JButton cart = new JButton("Shopping Cart");
+	private JButton checkout = new JButton("Check Out");
+	private JButton add = new JButton("Add");
+	private JButton remove = new JButton("Remove");
+/****************************************************************/
+	
+	public static ArrayList<Seat> getShoppingCart(){
+		return shoppingCart;
+	}
+	
+	
+	public static void main(String args[]){
+	try{
+	//open files for reading
+	BufferedReader in = new BufferedReader(new FileReader("sections.txt"));
+	BufferedReader in1 = new BufferedReader(new FileReader("numbers.txt"));
+	BufferedReader in2 = new BufferedReader(new FileReader("rows.txt"));
+	for (int j=0; j< 27; j++){
+		//read files to strings
+		String temp = in.readLine();
+		String temp1= in1.readLine();
+		String temp2= in2.readLine();
+//		System.out.println(temp);
+//		System.out.println(temp1);
+//		System.out.println(temp1);
+		char[] a=temp.toCharArray();
+		char[] a1=temp1.toCharArray();
+		char[] a2=temp2.toCharArray();
+		for (int i=0; i<35; i++){
+			if (Character.isDigit(a[i]) && Character.isDigit(a1[i])){
+				int sec= Character.getNumericValue(a[i]);
+				int num= Character.getNumericValue(a1[i]);
+				Seat seat= new Seat();
+				seat.setSection(sec);
+				seat.setNumber(num);
+				seat.setRow(a2[i]);
+				//fill stadium array with objects
+				stadium[j][i]= seat;	
+	//			System.out.println("C" + i + " R"+ j + " " + stadium[j][i]);
+			}
+			else {
+				stadium[j][i]= null;}
+			 }
+	}in.close(); 	//close files
+		in1.close();
+		in2.close();
+	} catch (FileNotFoundException e) {
+	System.out.println("Error: Cannot open file for reading.");
+	} catch (EOFException e) {
+	System.out.println("Error: EOF encountered, file may be corrupted.");
+	} catch (IOException e) {
+	System.out.println("Error: Cannot read from file.");
+	}
+
+	Stadium frame = new Stadium("Stadium");
+	frame.setMinimumSize(new Dimension(700,500));
+    frame.setVisible(true);
+
+	}
+	
+    public Stadium(String title) {
+        super(title);
+ //       GridBagLayout layout = new GridBagLayout();
+        //panel= new JPanel();
+     /*********************************************************************/
+      BorderLayout layout = new BorderLayout(2,2);
+      this.setLayout(layout);
+      
+      panel2= new JPanel();
+      panel2.setLayout(new BoxLayout(panel2, BoxLayout.Y_AXIS));
+      panel2.add(costdisp);
+      checkout.addActionListener(this);
+      checkout.setToolTipText("Go to Checkout.");
+      panel2.add(checkout);
+      cart.addActionListener(this);
+      cart.setToolTipText("View your shopping cart.");
+      panel2.add(cart);
+
+      
+      panel3= new JPanel();
+      panel3.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
+      panel3.add(seatdisp);
+      add.addActionListener(this);
+      add.setToolTipText("Add the current seat to your shopping cart.");
+      panel3.add(add);
+      remove.addActionListener(this);
+      remove.setToolTipText("Remove the current seat from your shopping cart.");
+      panel3.add(remove);
+     /*********************************************************************/ 
+
+       panel1 = new JPanel();
+       panel1.setLayout(new GridLayout(27,35,0,0));
+       for (int row=0; row<27; row++)
+            for (int col=0; col<35; col++) {
+                b = new JButton();
+
+                if (stadium[row][col] != null){
+                	if (stadium[row][col].getSection() == 1){
+                		b.setBackground(Color.red);
+                		b.addActionListener(this);
+                		//if (b.getAction()==)
+//                		layout.setConstraints(b, new GBC(col,row,1,1).setWeight(0, 0));
+                	//	add(b);
+                		panel1.add(b);}
+                	else if (stadium[row][col].getSection() == 2){
+                		b.setBackground(Color.green);
+                		b.addActionListener(this);
+     //           		layout.setConstraints(b, new GBC(col,row,1,1).setWeight(0, 0));
+                	//	add(b);
+                		panel1.add(b);
+                	}
+                	else if (stadium[row][col].getSection() == 3){
+                		b.setBackground(Color.blue);
+                		b.addActionListener(this);
+         //       		layout.setConstraints(b, new GBC(col,row,1,1).setWeight(0, 0));
+                	//	add(b);
+                		panel1.add(b);
+                	}
+                	else{
+                		b.setBackground(Color.yellow);
+                		b.addActionListener(this);
+       //         		layout.setConstraints(b, new GBC(col,row,1,1).setWeight(0, 0));
+                	//	add(b);
+                		panel1.add(b);
+                		
+                	}
+                	}
+ //           	else
+//            		b.setIcon(new ImageIcon("banana.gif"));
+                else{
+                	b.setBackground(Color.white);
+       //         	layout.setConstraints(b, new GBC(col,row,1,1).setWeight(0,0));
+            	//	add(b);
+                	panel1.add(b);
+                	}
+                
+            }
+          /***********************************************************************/
+          add(BorderLayout.CENTER, panel1); 
+          add(BorderLayout.EAST, panel2); 
+          add(BorderLayout.SOUTH, panel3); 	
+ 		  /***********************************************************************/
+        //textField.setEditable(false);
+        //panel1.add(textField);
+       // layout.setConstraints(panel1, new GBC(0,0,27,35).setWeight(100, 100));
+        //add(panel1);
+        //add(panel, BorderLayout.CENTER);
+       
+          
+
+//        layout.setConstraints(textField, new GBC(0,36,10,10).setWeight(0,0).setAnchor(18));
+ //       add(textField);
+        
+        
+/*        panel3 =new JPanel();
+        panel3.add(textField);
+        add(panel3, new GBC(1,0,1,1).setAnchor(GBC.NORTHEAST).setWeight(100, 100)); */
+        
+        
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
+        setSize(500, 500);
+    }
+    
+    public void aActionPerformed(ActionEvent arg0, int u, int v){
+    	actionPerformed(arg0);
+    	String[] seatinfo= {" "+stadium[u][v]};
+    	//seatdisp.addElement(seatinfo);
+	}
+
+	public void actionPerformed(ActionEvent arg0) {
+		if (arg0.getSource()==add && !shoppingCart.contains(stadium[5][0])){
+			shoppingCart.add(stadium[5][0]);
+			System.out.println(shoppingCart);
+		}
+		else if (arg0.getSource()==remove && shoppingCart.contains(stadium[5][0])){
+			shoppingCart.remove(stadium[5][0]);
+			System.out.println(shoppingCart);
+			//seatdisp.removeAll();
+			//seatdisp.add();
+		}
+		else if (arg0.getSource()==cart){
+			Cart cartframe = new Cart("Cart");
+			cartframe.setMinimumSize(new Dimension(200,200));
+		    cartframe.setVisible(true);
+		}
+		else if (arg0.getSource()==checkout){
+			
+		}
+		else{
+    		//System.out.println(b.getAction());
+		}
+		
+	}
+	
+	
+}

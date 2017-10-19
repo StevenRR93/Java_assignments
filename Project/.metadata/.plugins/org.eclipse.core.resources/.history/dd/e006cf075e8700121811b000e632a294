@@ -1,0 +1,64 @@
+/*
+ * Steven Ramirez
+ * Joseph Michalak
+ * Stadium Project
+ * 
+ */
+
+import java.awt.*;
+import java.awt.event.*;
+
+import javax.swing.*;
+
+public class Checkout extends JFrame {
+	private JPanel panel;
+	private JList listSeats;
+	private JButton pbutton;
+	private JButton rbutton;
+	public DefaultListModel show= new DefaultListModel();
+	
+	public Checkout(String title){
+		super(title);
+		BorderLayout layout = new BorderLayout(1,2);
+	    this.setLayout(layout);
+		
+		panel= new JPanel();
+		show.addElement("Item(s) currently in cart: ");
+		if (!Stadium.getShoppingCart().isEmpty()){
+			for (Seat list: Stadium.getShoppingCart()){
+				show.addElement(list);
+			}}
+		else
+			show.addElement("You have no items in your shopping cart!");
+		listSeats= new JList(show);
+		panel.add(listSeats);
+		
+		pbutton = new JButton("Purchase");
+		pbutton.setToolTipText("Purchase all items currently in your shopping cart.");
+		//button.addActionListener(this);
+		panel.add(pbutton);
+		if (Stadium.getShoppingCart().isEmpty()){
+			
+		}
+		
+		rbutton = new JButton("Remove all");
+		rbutton.setToolTipText("Remove all items currently in your shopping cart.");
+		//button.addActionListener(this);
+		panel.add(rbutton);
+		if (Stadium.getShoppingCart().isEmpty()){
+			
+		}
+		
+		panel.setAutoscrolls(true);
+		
+		add(BorderLayout.CENTER, panel);
+        setDefaultCloseOperation(HIDE_ON_CLOSE);
+        setSize(500, 500);
+        setLocation(200,100);
+	}
+	
+	public void actionPerformed(ActionEvent arg0) {
+		
+	}
+	
+}

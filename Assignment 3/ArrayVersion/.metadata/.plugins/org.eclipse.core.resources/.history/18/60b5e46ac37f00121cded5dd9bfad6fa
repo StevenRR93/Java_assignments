@@ -1,0 +1,73 @@
+/*
+ *Steven Ramirez
+ *ECE 251
+ *Assignment 3
+ *February 21, 2013
+ */
+
+import java.util.ArrayList;
+import java.util.Iterator;
+public class Lake {
+	// define instance variables
+	private String name;
+	private ArrayList<Fish> fish = new ArrayList<Fish>();
+
+	// create constructors
+	public Lake() {
+		this("");
+	}
+
+	public Lake(String aName) {
+		name = aName;
+	}
+
+	// create default toString
+	public String toString() {
+		return (name + " containing " + fish.size() + " fish");
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	// create method to determine whether the lake is full
+	public boolean isFull() {
+			return false;		
+	}
+
+	// create method to add fish to the lake
+	public void add(Fish afish) {
+		if (!isFull()) {
+			fish.add(afish);
+		}
+	}
+
+	// create method to search for first hungry fish
+	public Fish getHungryFish() {
+		Iterator<Fish> fishIterator = fish.iterator();
+		while (fishIterator.hasNext()) {
+			Fish hungryfish = (Fish)fishIterator.next();
+			if (hungryfish != null && hungryfish.isHungry()) {
+				fishIterator.remove();
+				hungryfish.setHungry(false);
+				return hungryfish;
+			}
+		}
+		return null;
+	}
+
+	// create method to list fish
+	public void listFish() {
+		System.out.println(getName() + " containing " + fish.size()
+				+ " fish as follows: ");
+		for (int i = 0; i < fish.size(); i++) {
+			if (fish.get(i) != null && fish.get(i).isHungry()) {
+				System.out.println(i + " - A hungry " + fish.get(i).getSize()
+						+ " cm " + fish.get(i).getSpecies());
+			} else if (fish.get(i) != null && !(fish.get(i).isHungry())) {
+				System.out.println(i + " - A full " + fish.get(i).getSize()
+						+ " cm " + fish.get(i).getSpecies());
+			}
+		}
+	}
+}

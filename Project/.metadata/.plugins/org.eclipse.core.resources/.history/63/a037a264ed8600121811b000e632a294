@@ -1,0 +1,10 @@
+public class A extends B{
+	public int d;
+	public void tryVariables(){
+		System.out.println(a);//access allowed
+		System.out.println(b);//access NOT allowed
+		System.out.println(getB());//can get private variable value
+		System.out.println(c);//access allowed
+	}
+}
+

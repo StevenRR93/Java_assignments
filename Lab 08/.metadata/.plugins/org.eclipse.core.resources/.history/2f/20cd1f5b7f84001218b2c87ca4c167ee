@@ -1,0 +1,10 @@
+/*
+ * Steven Ramirez
+ * ECE 251
+ * Lab 08 
+ */
+
+public class PaymentTest {
+	public static void main(String args0){
+	}
+}

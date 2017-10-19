@@ -1,0 +1,17 @@
+/*
+ * Steven Ramirez
+ * ECE 251
+ * Lab 08 
+ */
+
+public class PaymentTest {
+	public static void main(String args[]){
+		Payment cashpayment= new CashPayment(500);
+		cashpayment.paymentDetails();
+		Payment cashpay= new CashPayment(2147483647);
+		cashpay.paymentDetails();
+		Payment cc= new CreditCardPayment(100.00, "Hugh Jass", 123456789, "01/2020");
+		cc.paymentDetails();
+		cc.getAmount();
+	}
+}

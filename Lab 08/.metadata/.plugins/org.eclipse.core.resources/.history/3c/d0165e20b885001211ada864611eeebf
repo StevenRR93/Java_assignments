@@ -1,0 +1,25 @@
+/*
+ * Steven Ramirez
+ * ECE 251
+ * Lab 08 
+ */
+
+public class CreditCardPayment extends Payment {
+	private String name;
+	private int number;
+	private int expDate;
+	
+	public CreditCardPayment(){
+	//	this(super(),"", 0, 0);
+		
+	}
+	
+	public CreditCardPayment(double aAmount, String aName, int aNumber, int aExpDate){
+		super(aAmount);
+		name= aName;
+		number=aNumber;
+		expDate=aExpDate;
+	}
+	
+	
+}

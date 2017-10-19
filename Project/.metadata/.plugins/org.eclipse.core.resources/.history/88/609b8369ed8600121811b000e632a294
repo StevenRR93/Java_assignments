@@ -1,0 +1,27 @@
+public class Course{
+	int courseNumber;
+	String courseName;
+	
+	/********** constructor methods  *******/
+	public Course(int aNumber, String aName){
+		courseNumber = aNumber;
+		courseName = aName;
+	}
+	
+	/********** get and set methods   ******/
+	public int getCourseNumber(){
+		return courseNumber;
+	}
+	
+	public String getCourseName(){
+		return courseName;
+	}
+	
+	public void setCourseNumber(int aNumber){
+		courseNumber = aNumber;
+	}
+	
+	public void setCourseName(String aName){
+		courseName = aName;
+	}
+}

@@ -1,0 +1,56 @@
+/*
+ * Steven Ramirez
+ * Joseph Michalak
+ * Stadium Project
+ * 
+ */
+
+public class Seat {
+	private int section;
+	private char row;
+	private int number;
+	private boolean purchased;
+	
+	public int getSection(){ return section;}
+	
+	public char getRow() { return row; }
+	
+	public int getNumber() { return number; }
+	
+	public boolean isPurchased(){ return purchased; }
+	
+	public Seat(){
+		section= 0;
+		row= 0;
+		number= 0;
+		purchased= false;
+	}
+	
+	public Seat(int aSection, char aRow, int aNumber){
+		section= aSection;
+		row= aRow;
+		number= aNumber;
+		purchased=false;
+	}
+	
+	public void setSection(int a){
+		section=a;
+	}
+	
+	public void setRow(char a) {
+		row=a;
+	}
+	
+	public void setNumber(int a){
+		number=a;
+	}
+	
+	public void setPurchased(boolean a){
+		purchased= a;
+	}
+	
+	public String toString(){
+		return ("Section: " + section + " Row: " + row + " Number: " + number);
+	}
+	
+}
